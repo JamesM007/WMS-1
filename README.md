@@ -51,8 +51,6 @@ PostgresSQL using a database called `WMS`.
 
 ---
 
----
-
 ## Create `.env` File
 
 Under `server` directory, add the following `.env` file:
