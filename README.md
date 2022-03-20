@@ -51,7 +51,9 @@ PostgresSQL using a database called `WMS`.
 
 ---
 
-### Create `.env` File
+---
+
+## Create `.env` File
 
 Under `server` directory, add the following `.env` file:
 
@@ -62,6 +64,8 @@ Under `server` directory, add the following `.env` file:
     CLIENT_URL = http://localhost:3000
     SERVER_URL = http://localhost:5000
 ```
+
+---
 
 ## Tasks History
 
