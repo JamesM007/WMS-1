@@ -51,6 +51,18 @@ PostgresSQL using a database called `WMS`.
 
 ---
 
+### Create `.env` File
+
+Under `server` directory, add the following `.env` file:
+
+```env
+    PORT = 5000
+    SECRET = 75ca8cbdceeffdfeb4950150e8983436
+
+    CLIENT_URL = http://localhost:3000
+    SERVER_URL = http://localhost:5000
+```
+
 ## Tasks History
 
 -   PostgresSQL database and user table setup : Elmer Almeida
