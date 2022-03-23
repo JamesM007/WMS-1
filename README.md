@@ -49,6 +49,16 @@ PostgresSQL using a database called `WMS`.
     table users;
 ```
 
+#### Change active status of an account
+
+```sql
+    --- updating by username
+    update users set active=true where username='<username>';
+
+    --- updating by user id
+    update users set active=true where user_id=<user_id>;
+```
+
 ---
 
 ## Create `.env` File

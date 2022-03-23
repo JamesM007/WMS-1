@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { fetchProtectedInfo, onLogout } from "../api/auth";
+import { fetchProtectedInfo } from "../api/auth";
 import Layout from "../components/layout";
 
 const Dashboard = () => {
-	const dispatch = useDispatch();
 	const [loading, setLoading] = useState(true);
 	const [protectedData, setProtectedData] = useState(null);
 

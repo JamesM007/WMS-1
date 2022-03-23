@@ -1,0 +1,115 @@
+body {
+	background-color: #f9f9fb;
+	font-family: "Open Sans", sans-serif !important;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+/************************************************
+    Misc.
+ ************************************************/
+.account-created-feedback {
+	color: #0f5131;
+	text-align: center;
+}
+.account-created-feedback > i {
+	font-size: 50px;
+}
+
+/************************************************
+    Fonts
+ ************************************************/
+.fw-light {
+	font-weight: 300 !important;
+}
+.fw-regular {
+	font-weight: 400 !important;
+}
+.fw-medium {
+	font-weight: 500 !important;
+}
+.fw-semibold {
+	font-weight: 600 !important;
+}
+.fw-bold {
+	font-weight: 700 !important;
+}
+
+/************************************************
+    Buttons
+ ************************************************/
+button.btn-primary,
+a.btn-primary {
+	background-color: #79589f;
+	font-weight: 600;
+	color: #f9f9fb;
+	border: 1px solid #79589f;
+}
+button.btn-primary:hover,
+a.btn-primary:hover {
+	color: #79589f;
+	background-color: #f9f9fb;
+	border: 1px solid #79589f;
+	font-weight: 600;
+}
+button.btn-primary:focus,
+a.btn-primary:focus {
+	color: #79589f;
+	background-color: #f9f9fb;
+	border: 1px solid #79589f;
+	font-weight: 600;
+}
+
+button.btn-outline-primary,
+a.btn-outline-primary {
+	color: #79589f;
+	background-color: #f9f9fb;
+	border: 1px solid #79589f;
+	font-weight: 600;
+}
+button.btn-outline-primary:hover,
+a.btn-outline-primary:hover {
+	background-color: #79589f;
+	font-weight: 600;
+	color: #f9f9fb;
+	border: 1px solid #79589f;
+}
+button.btn-outline-primary:focus,
+a.btn-outline-primary:focus {
+	background-color: #79589f;
+	font-weight: 600;
+	color: #f9f9fb;
+	border: 1px solid #79589f;
+}
+
+/************************************************
+    Navbar
+ ************************************************/
+.navbar-brand > span.fancy {
+	font-family: "Kaushan Script", cursive;
+}
+
+/************************************************
+    Main
+ ************************************************/
+#main {
+	flex-grow: 1;
+}
+
+/************************************************
+    Footer
+ ************************************************/
+footer {
+	margin-top: auto;
+	background-color: #202529;
+	color: #f9f9fb;
+	height: 100%;
+	width: 100%;
+}
+footer > p {
+	margin: 0;
+	text-align: center;
+	padding: 15px 0;
+	font-weight: 600;
+}

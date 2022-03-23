@@ -23,7 +23,10 @@ const Navbar = () => {
 		<N bg="dark" variant="dark">
 			<Container>
 				<NavLink to="/" className="navbar-brand">
-					<span className="navbar-brand mb-0 h1">WMS</span>
+					<span className="navbar-brand mb-0 h1">
+						WMS <i className="bi bi-activity"></i>{" "}
+						<span className="fancy">UniqueCoders</span>
+					</span>
 				</NavLink>
 
 				{isAuth ? (
@@ -45,7 +48,7 @@ const Navbar = () => {
 							<span>Login</span>
 						</NavLink>
 						<NavLink to="/accounts/register" className="nav-link">
-							<span>Register</span>
+							<span>Create an account</span>
 						</NavLink>
 					</Nav>
 				)}

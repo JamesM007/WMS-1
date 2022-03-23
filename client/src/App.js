@@ -1,3 +1,5 @@
+import "./App.css";
+
 import {
 	BrowserRouter,
 	Navigate,
@@ -47,9 +49,8 @@ const App = () => {
 
 				<Route element={<PrivateRoutes />}>
 					<Route path="/dashboard" element={<Dashboard />} />
-					{
-						// Logout route
-					}
+
+					{/* Logout Route */}
 					<Route path="/accounts/logout" element={<Logout />} />
 				</Route>
 			</Routes>
