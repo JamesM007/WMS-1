@@ -54,7 +54,7 @@ const ManagementRoutes = () => {
 };
 
 /**
- * For management and operations routes.
+ * TODO: For management and operations routes.
  * If a role_type is "Management" OR "Operations", allow the user to proceed to these links.
  * This is different than "Management" only routes as it enables "Operations" to access too.
  */
