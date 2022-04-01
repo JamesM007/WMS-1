@@ -7,11 +7,12 @@ import {
 	Route,
 	Outlet,
 } from "react-router-dom";
-import Home from "./pages/home";
-import Login from "./pages/login";
-import Register from "./pages/register";
-import Dashboard from "./pages/dashboard";
-import Logout from "./pages/logout";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Designer from "./pages/Designer";
+import AllUsers from "./pages/AllUsers";
 import { useSelector } from "react-redux";
 
 /**
@@ -22,7 +23,7 @@ import { useSelector } from "react-redux";
 const PrivateRoutes = () => {
 	const { isAuth } = useSelector((state) => state.auth);
 
-	return <>{isAuth ? <Outlet /> : <Navigate to="accounts/login" />}</>;
+	return <>{isAuth ? <Outlet /> : <Navigate to="/accounts/login" />}</>;
 };
 
 /**
@@ -33,14 +34,46 @@ const PrivateRoutes = () => {
 const RestrictedRoutes = () => {
 	const { isAuth } = useSelector((state) => state.auth);
 
-	return <>{!isAuth ? <Outlet /> : <Navigate to="dashboard" />}</>;
+	return <>{!isAuth ? <Outlet /> : <Navigate to="/dashboard" />}</>;
 };
+
+/**
+ * For management routes.
+ * If a role_type of the user is "Management", allow the user to proceed.
+ * Only "Management" role_type can access these routes.
+ */
+const ManagementRoutes = () => {
+	const { isAuth } = useSelector((state) => state.auth);
+	const { role_type } = useSelector((state) => state.user)
+
+	return isAuth && role_type === "Management" ? (
+		<Outlet />
+	) : (
+		<Navigate to="/dashboard" />
+	);
+};
+
+/**
+ * For management and operations routes.
+ * If a role_type is "Management" OR "Operations", allow the user to proceed to these links.
+ * This is different than "Management" only routes as it enables "Operations" to access too.
+ */
+// const ManagementAndOperationsRoutes = () => {
+// 	const { isAuth } = useSelector((state) => state.auth);
+// 	const { role_type } = useSelector((state) => state.user)
+//
+// 	return isAuth && (role_type === "Management" || role_type === "Operations") ? (
+// 		<Outlet />
+// 	) : (
+// 		<Navigate to="/dashboard" />
+// 	);
+// }
 
 const App = () => {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<Home />} />
+				<Route path="/" exact element={<Home />} />
 
 				<Route element={<RestrictedRoutes />}>
 					<Route path="/accounts/login" element={<Login />} />
@@ -49,9 +82,11 @@ const App = () => {
 
 				<Route element={<PrivateRoutes />}>
 					<Route path="/dashboard" element={<Dashboard />} />
+				</Route>
 
-					{/* Logout Route */}
-					<Route path="/accounts/logout" element={<Logout />} />
+				<Route element={<ManagementRoutes />}>
+					<Route path="/admin/all-users" element={<AllUsers />} />
+					<Route path="/admin/designer" element={<Designer />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

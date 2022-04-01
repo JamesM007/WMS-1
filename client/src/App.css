@@ -90,6 +90,11 @@ a.btn-outline-primary:focus {
 	font-family: "Kaushan Script", cursive;
 }
 
+.custom-nav-link:focus,
+.custom-nav-link:active  {
+	color: #ffffff !important;
+}
+
 /************************************************
     Main
  ************************************************/
@@ -112,4 +117,35 @@ footer > p {
 	text-align: center;
 	padding: 15px 0;
 	font-weight: 600;
+}
+
+/************************************************
+	Designer
+ ************************************************/
+.designer {
+	display:flex;
+}
+.designer .designer-nav {
+	display: flex;
+	background-color: #f7f4fa;
+	justify-content: flex-start;
+	flex-direction: column;
+	height: 92vh;
+	min-width: 300px;
+	padding: 20px;
+	border-right: 1px solid #79589f;
+}
+.designer .designer-container {
+	min-width: 1400px;
+	width: 100vw;
+}
+.designer .designer-options {
+	display: flex;
+	background-color: #f7f4fa;
+	justify-content: flex-start;
+	flex-direction: column;
+	height: 92vh;
+	padding: 20px;
+	min-width: 300px;
+	border-left: 1px solid #79589f;
 }

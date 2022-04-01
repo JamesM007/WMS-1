@@ -1,10 +1,10 @@
-import Navbar from "./navbar";
+import Navbar from "./Navbar";
 
 const Layout = ({ children }) => {
 	return (
 		<div>
-			<Navbar />
-			<div id="main" className="container mt-3">
+			<Navbar applicationName="WMS" groupName="UniqueCoders" />
+			<div id="main" className="">
 				{children}
 			</div>
 		</div>

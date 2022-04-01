@@ -44,7 +44,7 @@ const password = check("password")
 // check role_type
 const role_type = check("role_type")
 	.trim()
-	.isIn(["management", "operations", "picker", "forklift"])
+	.isIn(["Management", "Operations", "Picker", "Forklift"])
 	.withMessage("Role type is not valid.")
 	.escape();
 
@@ -53,7 +53,7 @@ const confirm_password = check("confirm_password")
 	.trim()
 	.custom(async (confirmPassword, { req }) => {
 		const password = req.body.password;
-		const confirm_password = req.body.confirm_password;
+		const confirm_password = req.body.password_confirm;
 
 		if (password !== confirm_password) {
 			throw new Error("Your passwords do not match.");

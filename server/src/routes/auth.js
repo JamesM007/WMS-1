@@ -3,7 +3,7 @@ const {
 	getUsers,
 	register,
 	login,
-	protected,
+	userData,
 	logout,
 } = require("../controllers/auth");
 const {
@@ -17,7 +17,7 @@ const { userAuth } = require("../middlewares/auth-middleware");
 const router = Router();
 
 router.get("/get-users", getUsers);
-router.get("/protected", userAuth, protected);
+router.get("/userData", userAuth, userData);
 
 /**
 ***************************************************************************************

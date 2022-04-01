@@ -19,7 +19,7 @@ export async function onLogout() {
 	return await axios.get(`${SERVER_URL}:${PORT}${path}`);
 }
 
-export async function fetchProtectedInfo() {
-	const path = "/api/accounts/protected";
+export async function fetchUserData() {
+	const path = "/api/accounts/userData";
 	return await axios.get(`${SERVER_URL}:${PORT}${path}`);
 }

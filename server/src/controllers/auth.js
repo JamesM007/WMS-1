@@ -3,7 +3,7 @@ const { hash } = require("bcryptjs");
 const { sign } = require("jsonwebtoken");
 const { SECRET } = require("../constants");
 
-// GET: /api/get-users
+// GET: /api/accounts/get-users
 exports.getUsers = async (req, res) => {
 	try {
 		const { rows } = await db.query(
@@ -23,7 +23,7 @@ exports.getUsers = async (req, res) => {
 	}
 };
 
-// POST: /api/register
+// POST: /api/accounts/register
 exports.register = async (req, res) => {
 	const {
 		first_name,
@@ -55,7 +55,7 @@ exports.register = async (req, res) => {
 	}
 };
 
-// POST: /api/login
+// POST: /api/accounts/login
 exports.login = async (req, res) => {
 	let user = req.user;
 
@@ -82,7 +82,7 @@ exports.login = async (req, res) => {
 	}
 };
 
-// GET: /api/logout
+// GET: /api/accounts/logout
 exports.logout = async (req, res) => {
 	try {
 		return res.status(200).clearCookie("token", { httpOnly: true }).json({
@@ -98,16 +98,13 @@ exports.logout = async (req, res) => {
 	}
 };
 
-/**
- ************************************************************************
- // TODO : TEMPORARY TESTING PROTECTED ROUTE
- ************************************************************************
- */
-exports.protected = async (req, res) => {
+// GET: /api/accounts/userData
+exports.userData = async (req, res) => {
+	console.log("providing data");
 	try {
+		console.log(req.user);
 		return res.status(200).json({
 			user: req.user,
-			info: "protected information - this is the dashboard",
 		});
 	} catch (error) {
 		console.log(`Error: ${error.message}`);
