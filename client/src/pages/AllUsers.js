@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const AllUsers = () => {
 	return (
@@ -24,16 +24,21 @@ const AllUsers = () => {
 					</div>
 
 					<h2>All Users</h2>
-					<hr/>
+					<hr />
 					<div className="alert alert-info" role="alert">
-						<strong>TODO:</strong> Retrieve all users from the database. <br/>
-						<strong>TODO:</strong> Display all users information. &nbsp;
-						<code>id, first_name, last_name, username, email, role_type</code>
+						<strong>TODO:</strong> Retrieve all users from the
+						database. <br />
+						<strong>TODO:</strong> Display all users information.
+						&nbsp;
+						<code>
+							id, first_name, last_name, username, email,
+							role_type
+						</code>
 					</div>
 				</div>
 			</Layout>
 		</div>
-	)
+	);
 };
 
 export default AllUsers;
