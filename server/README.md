@@ -3,5 +3,5 @@
 To run the development environment:
 
 ```sh
-npm start
+npm run dev
 ```
