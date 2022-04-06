@@ -79,7 +79,7 @@ update users set active=true where user_id=<user_id>;
 
 ---
 
-## Create `.env` File
+# Create `.env` File
 
 Under `server` directory, add the following `.env` file:
 
@@ -93,9 +93,9 @@ SERVER_URL = http://localhost:5000
 
 ---
 
-## Tasks History
+# Tasks History
 
-Tasks completed by Elmer.
+**Tasks completed by Elmer.**
 
 -   PostgresSQL database, user table and objects table setup.
 -   Authentication, validation and registration.
