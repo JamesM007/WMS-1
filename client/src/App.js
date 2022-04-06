@@ -1,11 +1,11 @@
 import "./App.css";
 
 import {
-	BrowserRouter,
-	Navigate,
-	Routes,
-	Route,
-	Outlet,
+    BrowserRouter,
+    Navigate,
+    Routes,
+    Route,
+    Outlet,
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -13,7 +13,9 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Designer from "./pages/Designer";
 import AllUsers from "./pages/AllUsers";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAuthUser } from "./redux/slices/userSlice";
+import { useEffect } from "react";
 
 /**
  * For private routes.
@@ -21,9 +23,9 @@ import { useSelector } from "react-redux";
  * Dashboard, etc...
  */
 const PrivateRoutes = () => {
-	const { isAuth } = useSelector((state) => state.auth);
+    const { isAuth } = useSelector((state) => state.auth);
 
-	return <>{isAuth ? <Outlet /> : <Navigate to="/accounts/login" />}</>;
+    return <>{isAuth ? <Outlet /> : <Navigate to="/accounts/login" />}</>;
 };
 
 /**
@@ -32,10 +34,13 @@ const PrivateRoutes = () => {
  * Redirect user back to dashboard endpoint.
  */
 const RestrictedRoutes = () => {
-	const { isAuth } = useSelector((state) => state.auth);
+    const { isAuth } = useSelector((state) => state.auth);
 
-	return <>{!isAuth ? <Outlet /> : <Navigate to="/dashboard" />}</>;
+    return <>{!isAuth ? <Outlet /> : <Navigate to="/dashboard" />}</>;
 };
+
+// TODO: Hard coding role_type for "Management"
+const role_type = "Management";
 
 /**
  * For management routes.
@@ -43,14 +48,12 @@ const RestrictedRoutes = () => {
  * Only "Management" role_type can access these routes.
  */
 const ManagementRoutes = () => {
-	const { isAuth } = useSelector((state) => state.auth);
-	const { role_type } = useSelector((state) => state.user)
-
-	return isAuth && role_type === "Management" ? (
-		<Outlet />
-	) : (
-		<Navigate to="/dashboard" />
-	);
+    const { isAuth } = useSelector((state) => state.auth);
+    return isAuth && role_type === "Management" ? (
+        <Outlet />
+    ) : (
+        <Navigate to="/dashboard" />
+    );
 };
 
 /**
@@ -70,27 +73,27 @@ const ManagementRoutes = () => {
 // }
 
 const App = () => {
-	return (
-		<BrowserRouter>
-			<Routes>
-				<Route path="/" exact element={<Home />} />
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" exact element={<Home />} />
 
-				<Route element={<RestrictedRoutes />}>
-					<Route path="/accounts/login" element={<Login />} />
-					<Route path="/accounts/register" element={<Register />} />
-				</Route>
+                <Route element={<RestrictedRoutes />}>
+                    <Route path="/accounts/login" element={<Login />} />
+                    <Route path="/accounts/register" element={<Register />} />
+                </Route>
 
-				<Route element={<PrivateRoutes />}>
-					<Route path="/dashboard" element={<Dashboard />} />
-				</Route>
+                <Route element={<PrivateRoutes />}>
+                    <Route path="/dashboard" element={<Dashboard />} />
+                </Route>
 
-				<Route element={<ManagementRoutes />}>
-					<Route path="/admin/all-users" element={<AllUsers />} />
-					<Route path="/admin/designer" element={<Designer />} />
-				</Route>
-			</Routes>
-		</BrowserRouter>
-	);
+                <Route element={<ManagementRoutes />}>
+                    <Route path="/admin/designer" element={<Designer />} />
+                    <Route path="/admin/all-users" element={<AllUsers />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
 };
 
 export default App;

@@ -1,10 +1,18 @@
-import { Stage, Layer, Rect, Text, Line } from "react-konva";
+import { Stage, Layer, Rect, Text, Line, Image } from "react-konva";
 import { useState, useRef, useEffect } from "react";
 
 import Layout from "../components/Layout";
 import Rectangle from "../components/canvas/Rectangle";
-import { SaveIcon, TrashCanIcon } from "../components/canvas/Icons";
+import { SaveIcon, ExportIcon, TrashCanIcon } from "../components/canvas/Icons";
 import { Toast, generateID } from "../components/canvas/Helpers";
+
+import ChargingStation from "../images/charging-station.png";
+import Conveyer from "../images/conveyer.png";
+import DockDoors from "../images/dock-doors.png";
+import Office from "../images/office.png";
+import OutboundArea from "../images/outbound-area.png";
+import StagingArea from "../images/staging-area.png";
+import useImage from "use-image";
 
 // Create objects-nav warehouse objects
 const navWarehouseObjects = [
@@ -13,8 +21,8 @@ const navWarehouseObjects = [
         x: 30,
         y: 220,
         width: 189,
-        height: 75,
-        fill: "#463c8a",
+        height: 60,
+        fill: "#343d83",
         shadowOffsetX: 2,
         shadowOffsetY: 2,
         shadowColor: "#b6b7b6",
@@ -23,31 +31,55 @@ const navWarehouseObjects = [
     {
         id: generateID("pickingBin"),
         x: 30,
-        y: 336,
+        y: 320,
         width: 189,
-        height: 75,
-        fill: "#cd0000",
+        height: 60,
+        fill: "#f24c73",
         shadowOffsetX: 2,
         shadowOffsetY: 2,
-        shadowColor: "#b6b7b6",
+        shadowColor: "#f24c73",
         shadowBlur: 2,
     },
     {
         id: generateID("wall"),
         x: 30,
-        y: 450,
+        y: 421,
         width: 189,
         height: 20,
         fill: "#000000",
         shadowOffsetX: 2,
         shadowOffsetY: 2,
-        shadowColor: "#b6b7b6",
+        shadowColor: "#000000",
+        shadowBlur: 2,
+    },
+    {
+        id: generateID("pedestrianWalkway"),
+        x: 30,
+        y: 482,
+        width: 189,
+        height: 35,
+        fill: "#39aea9",
+        shadowOffsetX: 2,
+        shadowOffsetY: 2,
+        shadowColor: "#39aea9",
+        shadowBlur: 2,
+    },
+    {
+        id: generateID("forkliftPathway"),
+        x: 30,
+        y: 560,
+        width: 189,
+        height: 35,
+        fill: "#feda3d",
+        shadowOffsetX: 2,
+        shadowOffsetY: 2,
+        shadowColor: "#feda3d",
+        stroke: "#f24b73",
         shadowBlur: 2,
     },
 ];
 
 const handleMouseEnter = (e) => {
-    // log(e.target)
     const container = e.target.getStage().container();
     container.style.cursor = "pointer";
 };
@@ -65,6 +97,9 @@ const handleMouseDown = (e) => {
 const Designer = () => {
     let log = console.log;
 
+    // TODO: modify warehouseOjbects state to account for type [rect or images]
+    // TODO: warehouseObjects state for rect: must have fill color
+    // TODO: warehouseObjects state for images: must have image location path
     const [warehouseObjects, setWarehouseObjects] = useState([]);
     const [selectedId, selectShape] = useState(null);
     const [background, setBackground] = useState(null);
@@ -91,6 +126,7 @@ const Designer = () => {
 
     // Trash can icon click event handler -> remove all objects in objects-canvas
     const handleClearCanvas = (e) => {
+        console.log("handleClearCanvas() clicked");
         let layer = e.target.getStage().getLayers()[2]; // capture the objects-canvas layer
         layer.removeChildren();
 
@@ -98,8 +134,16 @@ const Designer = () => {
         Toast("Canvas Cleared.");
     };
 
-    // Handle saving the canvas state to an image
+    // Handle saving the canvas state to the database
     const handleSaveCanvas = (e) => {
+        console.log("handleSaveCanvas() clicked");
+        // TODO: take the list of warehouse objects from the state
+        // and post it to /objects/save API endpoint
+    };
+
+    // Handle exporting the canvas state to an image (warehouse-designer.png)
+    const handleExportCanvas = (e) => {
+        console.log("handleExportCanvas() clicked");
         setBackground(true);
 
         Toast("Exported canavas as image.");
@@ -124,6 +168,8 @@ const Designer = () => {
         let isStorageRackObject = !!object.includes("storageRack");
         let isPickingBinObject = !!object.includes("pickingBin");
         let isWallObject = !!object.includes("wall");
+        let isPedestrianWalkwayObject = !!object.includes("pedestrianWalkway");
+        let isForkliftPathwayObject = !!object.includes("forkliftPathway");
 
         let newObject = {
             width: 200,
@@ -146,7 +192,11 @@ const Designer = () => {
                         id: generateID("storageRack"),
                         x: randomXCoordinate,
                         y: randomYCoordinate,
-                        fill: "#463c8a",
+                        fill: "#343d83",
+                        shadowColor: "#343d83",
+                        shadowBlur: 2,
+                        shadowOffsetX: 2,
+                        shadowOffsetY: 2,
                     },
                 ];
             });
@@ -159,7 +209,11 @@ const Designer = () => {
                         id: generateID("pickingBin"),
                         x: randomXCoordinate,
                         y: randomYCoordinate,
-                        fill: "#cd0000",
+                        fill: "#f24b73",
+                        shadowColor: "#f24b73",
+                        shadowBlur: 2,
+                        shadowOffsetX: 2,
+                        shadowOffsetY: 2,
                     },
                 ];
             });
@@ -174,6 +228,47 @@ const Designer = () => {
                         y: randomYCoordinate,
                         height: 20,
                         fill: "#000000",
+                        shadowColor: "#000000",
+                        shadowBlur: 2,
+                        shadowOffsetX: 2,
+                        shadowOffsetY: 2,
+                    },
+                ];
+            });
+        } else if (isPedestrianWalkwayObject) {
+            setWarehouseObjects((prevState) => {
+                return [
+                    ...prevState,
+                    {
+                        ...newObject,
+                        id: generateID("pedestrianWalkway"),
+                        x: randomXCoordinate,
+                        y: randomYCoordinate,
+                        height: 40,
+                        fill: "#39aea9",
+                        shadowColor: "#39aea9",
+                        shadowBlur: 2,
+                        shadowOffsetX: 2,
+                        shadowOffsetY: 2,
+                    },
+                ];
+            });
+        } else if (isForkliftPathwayObject) {
+            setWarehouseObjects((prevState) => {
+                return [
+                    ...prevState,
+                    {
+                        ...newObject,
+                        id: generateID("forkliftPathway"),
+                        x: randomXCoordinate,
+                        y: randomYCoordinate,
+                        height: 40,
+                        fill: "#feda3d",
+                        shadowOffsetX: 2,
+                        shadowOffsetY: 2,
+                        shadowColor: "#feda3d",
+                        stroke: "#f24b73",
+                        shadowBlur: 2,
                     },
                 ];
             });
@@ -254,6 +349,36 @@ const Designer = () => {
     const handleDblClick = (e) => {
         // TODO: open pop-up with request for more information
         // regarding location ID, name, SKU assignment
+    };
+
+    const ChargingStationImage = () => {
+        const [image] = useImage(ChargingStation);
+        return image;
+    };
+
+    const ConveyerImage = () => {
+        const [image] = useImage(Conveyer);
+        return image;
+    };
+
+    const DockDoorsImage = () => {
+        const [image] = useImage(DockDoors);
+        return image;
+    };
+
+    const OfficeImage = () => {
+        const [image] = useImage(Office);
+        return image;
+    };
+
+    const OutboundAreaImage = () => {
+        const [image] = useImage(OutboundArea);
+        return image;
+    };
+
+    const StagingAreaImage = () => {
+        const [image] = useImage(StagingArea);
+        return image;
     };
 
     return (
@@ -371,14 +496,31 @@ const Designer = () => {
                             y={137}
                             width={20}
                             height={22}
-                            handleSaveCanvas={handleSaveCanvas}
                             handleMouseEnter={handleMouseEnter}
                             handleMouseLeave={handleMouseLeave}
-                            onClick={handleSaveCanvas}
+                            handleSaveCanvas={handleSaveCanvas}
                         />
                         {/* Line to separate icons in canvas-options */}
                         <Line
                             x={118}
+                            y={130}
+                            strokeWidth={1}
+                            points={[0, 0, 0, 35, 0, 0]}
+                            stroke="#000000"
+                        />
+
+                        <ExportIcon
+                            x={135}
+                            y={133}
+                            width={24}
+                            height={27}
+                            handleMouseEnter={handleMouseEnter}
+                            handleMouseLeave={handleMouseLeave}
+                            handleExportCanvas={handleExportCanvas}
+                        />
+                        {/* Line to separate icons in canvas-options */}
+                        <Line
+                            x={174}
                             y={130}
                             strokeWidth={1}
                             points={[0, 0, 0, 35, 0, 0]}
@@ -398,7 +540,7 @@ const Designer = () => {
                         <Text
                             text="Picking Bin"
                             x={30}
-                            y={315}
+                            y={300}
                             fontSize={15}
                             fontVariant="bold"
                         />
@@ -407,18 +549,36 @@ const Designer = () => {
                         <Text
                             text="Wall / Separator"
                             x={30}
-                            y={430}
+                            y={400}
+                            fontSize={15}
+                            fontVariant="bold"
+                        />
+
+                        {/* pedestrianWalkway label */}
+                        <Text
+                            text="Pedestrian Walkway"
+                            x={30}
+                            y={460}
+                            fontSize={15}
+                            fontVariant="bold"
+                        />
+
+                        {/* forkliftPathway label */}
+                        <Text
+                            text="Forklift Pathway"
+                            x={30}
+                            y={535}
                             fontSize={15}
                             fontVariant="bold"
                         />
 
                         {/* objects-nav warehouse objects based on navWarehouseObjects */}
                         {navWarehouseObjects &&
-                            navWarehouseObjects.map((rect, i) => {
+                            navWarehouseObjects.map((item, i) => {
                                 return (
                                     <Rect
                                         key={i}
-                                        {...rect}
+                                        {...item}
                                         onMouseEnter={(e) =>
                                             handleMouseEnter(e)
                                         }
@@ -427,11 +587,24 @@ const Designer = () => {
                                             handleMouseLeave(e)
                                         }
                                         onClick={(e) =>
+                                            // TODO: change to createWarehouseObject for TYPE rect
                                             createWarehouseObject(e)
                                         }
                                     />
                                 );
                             })}
+
+                        {/* TODO: display all the warehouse object images, onClick handler should add it to the warehouseObjects state */}
+                        {/* This works for static image display */}
+                        {/*}
+                        <Image
+                            x={20}
+                            y={500}
+                            width={180}
+                            height={180}
+                            image={ChargingStationImage()}
+                        />
+                        {*/}
 
                         {/* Remove warehouse objects area */}
                         <Rect

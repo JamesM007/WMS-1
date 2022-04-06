@@ -1,22 +1,22 @@
 const { Router } = require("express");
 const {
-	getUsers,
-	register,
-	login,
-	userData,
-	logout,
+    getUsers,
+    register,
+    login,
+    userData,
+    logout,
 } = require("../controllers/auth");
 const {
-	registrationValidation,
-	loginValidation,
+    registrationValidation,
+    loginValidation,
 } = require("../validators/auth");
 const {
-	validationMiddleware,
+    validationMiddleware,
 } = require("../middlewares/validations-middleware");
 const { userAuth } = require("../middlewares/auth-middleware");
 const router = Router();
 
-router.get("/get-users", getUsers);
+router.get("/get-users", userAuth, getUsers);
 router.get("/userData", userAuth, userData);
 
 /**
@@ -27,10 +27,10 @@ router.get("/userData", userAuth, userData);
 
 // POST: /api/accounts/register
 router.post(
-	"/register",
-	registrationValidation,
-	validationMiddleware,
-	register
+    "/register",
+    registrationValidation,
+    validationMiddleware,
+    register
 );
 
 // POST: /api/accounts/login
