@@ -98,13 +98,13 @@ SERVER_URL = http://localhost:5000
 **Tasks completed by Elmer.**
 
 -   PostgresSQL database, user table and objects table setup.
--   Authentication, validation and registration.
+-   Authentication, registration validation and registration.
 -   Protected and restricted routes for auth users and guest users.
 -   Create canvas for warehouse objects and clear canvas functionality.
 -   Create warehouse objects with resize, rotate, and delete functionality.
 -   Export canvas as image.
--   Save warehouse objects functionality.
--   AllUsers route to view all users and their roles. [Must be a "Management" role]
+-   Save warehouse objects endpoint functionality with object validation.
+-   Route to view all users and their roles. [Must be a "Management" role]
 -   Redux store for the following:
     -   Quick access to isAuth of the current user.
     -   Get auth user information.
