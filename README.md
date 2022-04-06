@@ -9,6 +9,8 @@ This project is built using the **PERN** stack.
 -   React
 -   NodeJS
 
+This project also utilizes the React-Konva library, Bootstrap 5, and Redux-Thunk.
+
 ---
 
 # Database
@@ -89,6 +91,14 @@ SECRET = 75ca8cbdceeffdfeb4950150e8983436
 
 CLIENT_URL = http://localhost:3000
 SERVER_URL = http://localhost:5000
+```
+
+## NOTE
+
+Please don't forget to run the following script in the `server` directory **and** the `client` directory:
+
+```sh
+npm install
 ```
 
 ---
