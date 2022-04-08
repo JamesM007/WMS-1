@@ -25,3 +25,11 @@ create table objects (
     created_at date default current_date,
     active boolean not null default true
 );
+
+-- Warehouse Objects Locations
+create table locations(
+    id varchar(120) primary key,
+    location varchar(120) not null,
+    active boolean not null default true
+    created_at date default current_date,
+);

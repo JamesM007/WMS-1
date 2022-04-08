@@ -349,6 +349,14 @@ const Designer = () => {
     const handleDblClick = (e) => {
         // TODO: open pop-up with request for more information
         // regarding location ID, name, SKU assignment
+        // Location ID for example could be: 
+        // A-01-01, A-01-02
+        // A-02-01, A-02-02
+        // A-03-01, A-03-02
+        // A-04-01, A-04-02
+        // A-05-01, A-05-02
+        console.log(e.target.attrs.id)
+        console.log("i have double clicked this object")
     };
 
     const ChargingStationImage = () => {
@@ -675,9 +683,6 @@ const Designer = () => {
                                 );
                             })}
                     </Layer>
-
-                    {/* Remove warehouse objects area */}
-                    <Layer></Layer>
                 </Stage>
             </Layout>
         </div>
