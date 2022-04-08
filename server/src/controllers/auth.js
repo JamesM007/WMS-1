@@ -100,9 +100,7 @@ exports.logout = async (req, res) => {
 
 // GET: /api/accounts/userData
 exports.userData = async (req, res) => {
-    console.log("providing data");
     try {
-        console.log(req.user);
         return res.status(200).json({
             user: req.user,
         });
