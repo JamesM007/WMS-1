@@ -1,6 +1,7 @@
 import { Stage, Layer, Rect, Text, Line, Image } from "react-konva";
 import { useState, useRef, useEffect } from "react";
 
+import { onSaveObjects } from "../api/objects";
 import Layout from "../components/Layout";
 import Rectangle from "../components/canvas/Rectangle";
 import { SaveIcon, ExportIcon, TrashCanIcon } from "../components/canvas/Icons";
@@ -135,10 +136,51 @@ const Designer = () => {
     };
 
     // Handle saving the canvas state to the database
+    function saveData(){
+        const saveThis = {id: 0,
+            type: "",
+            x: 1,
+            y: 1,
+            width: 1,
+            height: 1,
+            image: "",
+            fill: "",  
+        };
+            warehouseObjects.map(function(obj){
+                if (obj.id.includes("storageRack")){
+                    saveThis.type = "storageRack";
+                    saveThis.image = "storageRack";
+                }
+                else if (obj.id.includes("pickingBin")){
+                    saveThis.type = "pickingBin";
+                    saveThis.image = "pickingBin";
+                }
+                else if (obj.id.includes("wall")){
+                    saveThis.type = "wall";
+                    saveThis.image = "wall";
+                }
+                else if (obj.id.includes("pedestrianWalkway")){
+                    saveThis.type = "pedestrianWalkway";
+                    saveThis.image = "pedestrianWalkway";
+                }
+                else if (obj.id.includes("forkliftPathway")){
+                    saveThis.type = "forkliftPathway";
+                    saveThis.image = "forkliftPathway";
+                }
+                saveThis.id = obj.id;
+                saveThis.x = obj.x;
+                saveThis.y = obj.y;
+                saveThis.width = obj.width;
+                saveThis.height = obj.height;
+                saveThis.fill = obj.fill;
+                onSaveObjects(saveThis);
+            });
+    
+    
+       };
     const handleSaveCanvas = (e) => {
         console.log("handleSaveCanvas() clicked");
-        // TODO: take the list of warehouse objects from the state
-        // and post it to /objects/save API endpoint
+        saveData();
     };
 
     // Handle exporting the canvas state to an image (warehouse-designer.png)
