@@ -130,7 +130,8 @@ const Designer = () => {
         console.log("handleClearCanvas() clicked");
         let layer = e.target.getStage().getLayers()[2]; // capture the objects-canvas layer
         layer.removeChildren();
-
+        clearObjects(); //remove objects from database
+        setWarehouseObjects([]); //flush objects from state
         // create toast to update user
         Toast("Canvas Cleared.");
     };
@@ -146,6 +147,7 @@ const Designer = () => {
             image: "",
             fill: "",  
         };
+        clearObjects();
             warehouseObjects.map(function(obj){
                 if (obj.id.includes("storageRack")){
                     saveThis.type = "storageRack";
